@@ -6,82 +6,235 @@
 }
 
 .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     color: #3b82f6;
     text-decoration: none;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    display: inline-block;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+}
+
+.back-button:hover {
+    color: #2563eb;
 }
 
 .detail-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-@media (min-width: 768px) {
-    .detail-content {
-        flex-direction: row;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
 }
 
 .detail-image {
     width: 100%;
-    max-width: 500px;
     height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .detail-text {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .detail-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #1f2937;
-    margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .detail-description {
     color: #4b5563;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
 
 .detail-price {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #c9a04d;
-    margin: 1rem 0;
 }
 
 .detail-stock {
     font-weight: 600;
-    color: #10b981;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+    width: fit-content;
+}
+
+.detail-stock {
+    background-color: #d1fae5;
+    color: #065f46;
 }
 
 .detail-button {
-    margin-top: 1.5rem;
-    padding: 0.75rem 2rem;
+    padding: 1rem 2rem;
     border: none;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    margin-top: 1rem;
 }
 
 .detail-button:disabled {
     background-color: #d1d5db;
+    color: #9ca3af;
     cursor: not-allowed;
 }
 
 .detail-button:not(:disabled) {
     background-color: #3b82f6;
     color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .detail-button:not(:disabled):hover {
     background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Sección de recomendaciones */
+.recommendations-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 3rem;
+}
+
+.recommendations-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.recommended-product {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.recommended-product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.recommended-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.recommended-product:hover .recommended-image {
+    transform: scale(1.05);
+}
+
+.recommended-name {
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.recommended-price {
+    padding: 0 1rem 1rem 1rem;
+    color: #c9a04d;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+/* Responsividad para tablets */
+@media (max-width: 1024px) {
+    .detail-content {
+        gap: 2rem;
+    }
+
+    .detail-title {
+        font-size: 2rem;
+    }
+
+    .detail-price {
+        font-size: 1.75rem;
+    }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .detail-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .detail-image {
+        max-height: 400px;
+    }
+
+    .detail-title {
+        font-size: 1.75rem;
+    }
+
+    .detail-description {
+        font-size: 1rem;
+    }
+
+    .detail-price {
+        font-size: 1.5rem;
+    }
+
+    .detail-button {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .recommendations-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-container {
+        margin: 1rem auto;
+    }
+
+    .detail-title {
+        font-size: 1.5rem;
+    }
+
+    .detail-image {
+        border-radius: 12px;
+    }
+
+    .detail-text {
+        gap: 1rem;
+    }
+
+    .recommendations-section {
+        padding-top: 2rem;
+    }
 }

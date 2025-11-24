@@ -1,0 +1,147 @@
+/* src/styles/Categorias.css */
+.categorias-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.categorias-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.categorias-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.categorias-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+}
+
+.categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.categoria-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    transition: all 0.3s;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.categoria-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c9a04d, #b08f3f);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.categoria-card:hover::before {
+    transform: scaleX(1);
+}
+
+.categoria-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.categoria-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #c9a04d, #b08f3f);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.categoria-nombre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.categoria-descripcion {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.categoria-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    border-radius: 8px;
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 1.1rem;
+}
+
+.loading {
+    color: #6b7280;
+}
+
+.error {
+    color: #ef4444;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .categorias-title {
+        font-size: 2rem;
+    }
+
+    .categorias-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .categoria-card {
+        padding: 1.5rem;
+    }
+
+    .categoria-nombre {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .categorias-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .categoria-card {
+        padding: 1.25rem;
+    }
+}
