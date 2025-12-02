@@ -1,15 +1,18 @@
-/* src/styles/Navbar.css */
+/* src/styles/Navbar.css - DISEÑO PREMIUM */
+
 .navbar {
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8),
+        0 0 1px rgba(201, 160, 77, 0.3);
     padding: 1rem 2rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid rgba(201, 160, 77, 0.2);
 }
 
 .navbar-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -17,15 +20,21 @@
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #c9a04d;
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #c9a04d, #f4e4c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .navbar-brand:hover {
-    color: #b08f3f;
+    text-shadow: 0 0 20px rgba(201, 160, 77, 0.8);
+    transform: scale(1.05);
 }
 
 .navbar-links {
@@ -39,55 +48,92 @@
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-    color: #4b5563;
+    color: #b4b4b4;
     font-weight: 600;
-    transition: color 0.2s;
+    transition: all 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
 }
 
 .navbar-link:hover {
-    color: #1f2937;
+    color: #c9a04d;
+    background: rgba(201, 160, 77, 0.1);
+    transform: translateY(-2px);
 }
 
 .navbar-cart {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #f3f4f6;
-    border-radius: 8px;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, rgba(201, 160, 77, 0.15), rgba(201, 160, 77, 0.1));
+    border: 1px solid rgba(201, 160, 77, 0.3);
+    border-radius: 50px;
     text-decoration: none;
-    color: #1f2937;
-    font-weight: 600;
-    transition: all 0.2s;
+    color: #c9a04d;
+    font-weight: 700;
+    transition: all 0.3s;
     position: relative;
+    font-size: 0.95rem;
 }
 
 .navbar-cart:hover {
-    background-color: #e5e7eb;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(201, 160, 77, 0.25), rgba(201, 160, 77, 0.2));
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(201, 160, 77, 0.4);
 }
 
 .cart-badge {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: #ef4444;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 0.25rem 0.5rem;
-    border-radius: 12px;
-    min-width: 20px;
+    border-radius: 50px;
+    min-width: 22px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.6);
+}
+
+.navbar-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #ef4444;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border-radius: 12px;
+}
+
+.navbar-logout:hover {
+    background: rgba(239, 68, 68, 0.15);
+    transform: translateY(-2px);
 }
 
 .mobile-menu-btn {
     display: none;
-    background: none;
-    border: none;
+    background: rgba(201, 160, 77, 0.1);
+    border: 1px solid rgba(201, 160, 77, 0.3);
+    border-radius: 12px;
     cursor: pointer;
-    color: #1f2937;
+    color: #c9a04d;
     padding: 0.5rem;
+    transition: all 0.3s;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(201, 160, 77, 0.2);
+    transform: scale(1.05);
 }
 
 .mobile-menu {
@@ -113,7 +159,7 @@
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem 0;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid rgba(201, 160, 77, 0.2);
         margin-top: 1rem;
     }
 
@@ -121,19 +167,32 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.75rem 1rem;
+        padding: 0.875rem 1rem;
         text-decoration: none;
-        color: #4b5563;
+        color: #b4b4b4;
         font-weight: 600;
-        border-radius: 8px;
-        transition: background-color 0.2s;
+        border-radius: 12px;
+        transition: all 0.3s;
+        font-size: 0.95rem;
     }
 
     .mobile-link:hover {
-        background-color: #f3f4f6;
+        background: rgba(201, 160, 77, 0.1);
+        color: #c9a04d;
     }
 
     .navbar-brand {
-        font-size: 1.25rem;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .mobile-link {
+        font-size: 0.9rem;
+        padding: 0.75rem 0.875rem;
     }
 }

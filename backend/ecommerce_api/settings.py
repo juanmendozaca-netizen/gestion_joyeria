@@ -3,16 +3,20 @@ Django settings for ecommerce_api project.
 """
 
 from pathlib import Path
+from decouple import config  # pip install python-decouple
 
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-_af4g4a$!4m)e=9-3@0_0k48n*p9e95prppni$tsp%dlvt1wt1'
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'localhost:8000', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'productos',
 ]
@@ -29,7 +34,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'productos.middleware.SessionDebugMiddleware',  # ✅ DEBE ir después de SessionMiddleware
+    'productos.middleware.SessionDebugMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -56,6 +61,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerce_api.wsgi.application'
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,6 +69,18 @@ DATABASES = {
     }
 }
 
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -78,32 +96,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 USE_I18N = True
 USE_TZ = True
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ========================================
-# CONFIGURACIÓN CORS Y SESIONES (CORREGIDA)
-# ========================================
+# Login/Logout redirects
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
-# Permitir requests desde el frontend React
+# ========================================
+# CONFIGURACIÓN CORS
+# ========================================
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
-# ✅ Permitir envío de cookies entre dominios
 CORS_ALLOW_CREDENTIALS = True
-
-# ✅ IMPORTANTE: Exponer headers necesarios
 CORS_EXPOSE_HEADERS = ['Set-Cookie']
-
-# ✅ Permitir headers específicos
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -116,38 +134,35 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-# ✅ CSRF para desarrollo local
+# ========================================
+# CONFIGURACIÓN CSRF
+# ========================================
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
-# ✅ CONFIGURACIÓN DE SESIONES (SOLUCIÓN AL PROBLEMA)
-# Usar 'Lax' en desarrollo local (no 'None' que requiere HTTPS)
-SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False  # False porque estamos en HTTP (desarrollo)
-SESSION_COOKIE_HTTPONLY = True  # Seguridad adicional
-
-# ✅ Configuración CSRF
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_HTTPONLY = False  # Debe ser False para que JS pueda leerlo
-
-# ✅ CRÍTICO: Permitir cookies en localhost
-SESSION_COOKIE_DOMAIN = None
+CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_DOMAIN = None
 
-# ✅ Nombre de la cookie de sesión
+# ========================================
+# CONFIGURACIÓN DE SESIONES
+# ========================================
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'
-
-# ✅ La cookie debe funcionar en todas las rutas
+SESSION_COOKIE_AGE = 1209600  # 2 semanas
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_PATH = '/'
 
-# ✅ Opcional: Aumentar tiempo de vida de la sesión (por defecto es 2 semanas)
-SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
-
-# ✅ IMPORTANTE: Forzar que Django guarde la sesión en cada request
-SESSION_SAVE_EVERY_REQUEST = True
-
-# ✅ Usar sesiones basadas en base de datos (más confiable que caché)
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# ========================================
+# STRIPE CONFIGURATION
+# ========================================
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='')

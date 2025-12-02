@@ -1,42 +1,224 @@
+/* src/App.css - Estilos Específicos de App */
+
+/* ========================================
+   CONTENEDOR PRINCIPAL DE LA APP
+   ======================================== */
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+  /* No aplicar max-width aquí para permitir que el fondo cubra todo */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.App {
+  min-height: 100vh;
+  position: relative;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 2rem;
+}
+
+.app-loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(201, 160, 77, 0.2);
+  border-top-color: #c9a04d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.app-loading-text {
+  font-size: 1.25rem;
+  color: #c9a04d;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* ========================================
+   ERROR BOUNDARY
+   ======================================== */
+
+.app-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.app-error-title {
+  font-size: 2.5rem;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.app-error-message {
+  font-size: 1.25rem;
+  color: #b4b4b4;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.app-error-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #c9a04d, #f4e4c1);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.app-error-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(201, 160, 77, 0.4);
+}
+
+/* ========================================
+   TRANSICIONES DE PÁGINAS (OPCIONAL)
+   ======================================== */
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+/* ========================================
+   ESTILOS GLOBALES DE OVERLAY/MODAL
+   ======================================== */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-premium {
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+  border: 1px solid rgba(201, 160, 77, 0.3);
+  border-radius: 24px;
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+  animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-.card {
-  padding: 2em;
+/* ========================================
+   TOAST/NOTIFICACIONES
+   ======================================== */
+
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.read-the-docs {
-  color: #888;
+.toast {
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+  border: 1px solid rgba(201, 160, 77, 0.3);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  min-width: 300px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  animation: slideInRight 0.3s ease;
+}
+
+.toast-success {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.toast-error {
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .modal-premium {
+    padding: 2rem;
+  }
+
+  .toast-container {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .toast {
+    min-width: auto;
+  }
 }

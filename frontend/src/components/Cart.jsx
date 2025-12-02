@@ -1,13 +1,19 @@
-// src/components/Cart.jsx
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { fetchCart, updateCartItem, removeCartItem } from '../api'
 import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react'
+import { useStripePayment } from '../hooks/useStripePayment'
 import '../styles/Cart.css'
+
+
+
+
+
 
 export default function Cart() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const { redirectToCheckout } = useStripePayment() // ✅ Hook de Stripe
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['cart'],
@@ -17,16 +23,9 @@ export default function Cart() {
   // ✅ Mutación para actualizar cantidad con optimistic update
   const updateMutation = useMutation({
     mutationFn: ({ id, quantity }) => updateCartItem(id, quantity),
-    
-    // ✅ Optimistic update: actualizar UI inmediatamente
     onMutate: async ({ id, quantity }) => {
-      // Cancelar queries en curso
       await queryClient.cancelQueries({ queryKey: ['cart'] })
-      
-      // Guardar snapshot del estado anterior
       const previousCart = queryClient.getQueryData(['cart'])
-      
-      // Optimistic update
       queryClient.setQueryData(['cart'], (old) => {
         if (!old?.data) return old
         return {
@@ -36,23 +35,18 @@ export default function Cart() {
               ? { 
                   ...item, 
                   quantity, 
-                  subtotal: item.product.precio_final * quantity  // ✅ Usar precio_final
+                  subtotal: item.product.precio_final * quantity
                 }
               : item
           )
         }
       })
-      
       return { previousCart }
     },
-    
-    // ✅ Rollback en caso de error
     onError: (err, variables, context) => {
       queryClient.setQueryData(['cart'], context.previousCart)
       alert('Error al actualizar cantidad. Intenta de nuevo.')
     },
-    
-    // ✅ Refetch para asegurar sincronización
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
     },
@@ -61,12 +55,9 @@ export default function Cart() {
   // ✅ Mutación para eliminar item con optimistic update
   const deleteMutation = useMutation({
     mutationFn: (id) => removeCartItem(id),
-    
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ['cart'] })
       const previousCart = queryClient.getQueryData(['cart'])
-      
-      // Optimistic update: remover inmediatamente
       queryClient.setQueryData(['cart'], (old) => {
         if (!old?.data) return old
         return {
@@ -74,15 +65,12 @@ export default function Cart() {
           data: old.data.filter(item => item.id !== id)
         }
       })
-      
       return { previousCart }
     },
-    
     onError: (err, variables, context) => {
       queryClient.setQueryData(['cart'], context.previousCart)
       alert('Error al eliminar producto. Intenta de nuevo.')
     },
-    
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
     },
@@ -109,7 +97,7 @@ export default function Cart() {
   }
 
   const cart = data?.data || []
-  const total = cart.reduce((sum, item) => sum + item.subtotal, 0)  // ✅ Usar subtotal
+  const total = cart.reduce((sum, item) => sum + item.subtotal, 0)
   const totalAhorro = cart.reduce((sum, item) => {
     return sum + (item.product.tiene_descuento ? item.product.ahorro * item.quantity : 0)
   }, 0)
@@ -154,7 +142,6 @@ export default function Cart() {
                     {item.product.nombre}
                   </h3>
                   
-                  {/* ✅ Mostrar descuento si existe */}
                   {item.product.tiene_descuento ? (
                     <div className="cart-item-pricing">
                       <span className="cart-item-price-original">${item.product.precio}</span>
@@ -217,8 +204,13 @@ export default function Cart() {
               <span>Total:</span>
               <strong>${total.toFixed(2)}</strong>
             </div>
-            <button className="checkout-btn">
-              Proceder al Pago
+            {/* ✅ Botón de pago con Stripe */}
+            <button 
+              onClick={redirectToCheckout}
+              disabled={cart.length === 0 || updateMutation.isPending || deleteMutation.isPending}
+              className="checkout-btn"
+            >
+              Pagar con Tarjeta / Apple Pay / Google Pay
             </button>
           </div>
         </>

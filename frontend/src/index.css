@@ -1,17 +1,11 @@
-/* src/index.css - Estilos Globales */
+/* src/index.css - Estilos Globales PREMIUM */
 
 /* ========================================
    IMPORTAR FUENTES DE GOOGLE FONTS
    ======================================== */
 
-/* Opción 1: Fuente elegante para joyería - Playfair Display + Lato */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap');
-
-/* Opción 2: Fuente moderna - Montserrat + Open Sans */
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap'); */
-
-/* Opción 3: Fuente clásica - Cormorant + Raleway */
-/* @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap'); */
+/* Fuente elegante para joyería - Playfair Display + Lato */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700;900&display=swap');
 
 /* ========================================
    RESET Y CONFIGURACIÓN BASE
@@ -24,68 +18,94 @@
 }
 
 /* ========================================
-   FUENTES GLOBALES
+   VARIABLES CSS (TEMA PREMIUM)
    ======================================== */
 
 :root {
-  /* Opción 1: Playfair Display (títulos) + Lato (texto) */
+  /* Fuentes */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Lato', sans-serif;
 
-  /* Opción 2: Montserrat (títulos) + Open Sans (texto) */
-  /* --font-heading: 'Montserrat', sans-serif; */
-  /* --font-body: 'Open Sans', sans-serif; */
+  /* Colores Premium */
+  --color-gold-primary: #c9a04d;
+  --color-gold-light: #f4e4c1;
+  --color-bg-dark: #0a0a0a;
+  --color-bg-medium: #1a1a1a;
+  --color-bg-card: rgba(30, 30, 30, 0.8);
 
-  /* Opción 3: Cormorant (títulos) + Raleway (texto) */
-  /* --font-heading: 'Cormorant', serif; */
-  /* --font-body: 'Raleway', sans-serif; */
+  /* Textos */
+  --color-text-white: #ffffff;
+  --color-text-gray: #b4b4b4;
+  --color-text-dark-gray: #666666;
 
-  /* Colores del tema */
-  --color-primary: #c9a04d;
-  --color-secondary: #3b82f6;
-  --color-dark: #1f2937;
-  --color-gray: #6b7280;
-  --color-light: #f9fafb;
+  /* Acentos */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-danger: #dc2626;
+
+  /* Transparencias de oro */
+  --gold-10: rgba(201, 160, 77, 0.1);
+  --gold-20: rgba(201, 160, 77, 0.2);
+  --gold-30: rgba(201, 160, 77, 0.3);
 }
 
 /* ========================================
-   APLICAR FUENTES A TODO EL SITIO
+   CONFIGURACIÓN GLOBAL BODY
    ======================================== */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  color: var(--color-dark);
-  background-color: #f9fafb;
+  color: var(--color-text-white);
+  /* ✅ FONDO OSCURO COMPLETO */
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Todos los títulos usan la fuente de heading */
+#root {
+  min-height: 100vh;
+}
+
+/* ========================================
+   TIPOGRAFÍA
+   ======================================== */
+
+/* Títulos con fuente elegante */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: sans-serif;
+  font-family: var(--font-heading), serif;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--color-dark);
+  color: var(--color-text-white);
+  letter-spacing: 0.5px;
 }
 
 /* Tamaños de títulos */
 h1 {
   font-size: 2.5rem;
+  font-weight: 900;
 }
 
 h2 {
   font-size: 2rem;
+  font-weight: 800;
 }
 
 h3 {
   font-size: 1.75rem;
+  font-weight: 700;
 }
 
 h4 {
@@ -102,28 +122,31 @@ h6 {
 
 /* Párrafos y texto general */
 p {
-  font-family: sans-serif;
+  font-family: var(--font-body), sans-serif;
   line-height: 1.8;
+  color: var(--color-text-gray);
 }
 
 /* Botones */
 button {
-  font-family: sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
+  cursor: pointer;
 }
 
 /* Links */
 a {
-  font-family: sans-serif;
+  font-family: var(--font-body), sans-serif;
   text-decoration: none;
   color: inherit;
+  transition: all 0.3s ease;
 }
 
 /* Inputs */
 input,
 textarea,
 select {
-  font-family: sans-serif;
+  font-family: var(--font-body), sans-serif;
 }
 
 /* ========================================
@@ -131,25 +154,86 @@ select {
    ======================================== */
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selección de texto personalizada */
+/* Selección de texto personalizada dorada */
 ::selection {
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--color-gold-primary);
+  color: #000;
 }
 
 ::-moz-selection {
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--color-gold-primary);
+  color: #000;
+}
+
+/* ========================================
+   SCROLLBAR PERSONALIZADA PREMIUM
+   ======================================== */
+
+/* Para navegadores Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-gold-primary), var(--color-gold-light));
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold-primary));
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold-primary) var(--color-bg-dark);
+}
+
+/* ========================================
+   ANIMACIONES GLOBALES
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 /* ========================================
@@ -173,6 +257,10 @@ html {
   h3 {
     font-size: 1.5rem;
   }
+
+  h4 {
+    font-size: 1.25rem;
+  }
 }
 
 /* Mobile */
@@ -192,26 +280,94 @@ html {
   h3 {
     font-size: 1.25rem;
   }
+
+  h4 {
+    font-size: 1.1rem;
+  }
 }
 
 /* ========================================
-   SCROLLBAR PERSONALIZADA (Opcional)
+   CLASES UTILITARIAS PREMIUM
    ======================================== */
 
-/* Para navegadores Webkit (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-  width: 10px;
+/* Texto con gradiente dorado */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold-primary), var(--color-gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+/* Glow dorado */
+.glow-gold {
+  text-shadow: 0 0 20px rgba(201, 160, 77, 0.5);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 5px;
+/* Card premium */
+.card-premium {
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
+  border: 1px solid var(--gold-20);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #b08f3f;
+.card-premium:hover {
+  border-color: var(--color-gold-primary);
+  box-shadow: 0 20px 60px var(--gold-30);
+  transform: translateY(-5px);
+}
+
+/* Botón premium dorado */
+.btn-premium-gold {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--color-gold-primary), var(--color-gold-light));
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px var(--gold-30);
+}
+
+.btn-premium-gold:hover {
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-primary));
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(201, 160, 77, 0.5);
+}
+
+/* Loading spinner dorado */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--gold-20);
+  border-top-color: var(--color-gold-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ========================================
+   MODO DE REDUCCIÓN DE MOVIMIENTO
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
